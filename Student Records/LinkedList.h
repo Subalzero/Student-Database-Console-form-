@@ -3,7 +3,7 @@
 
 /*******************************************************************************
 **		This class is an implementation of a Doubly Linked-List.              **
-**		Author: Lord Alzer T. Casiño.                                         **
+**		Author: Lord Alzer T. CasiÃ±o.                                         **
 ********************************************************************************/
 template <typename T>
 class LinkedList
@@ -128,9 +128,25 @@ public:
 		else if (index < 0)
 			throw std::out_of_range("Index cannot be negative.");
 		Node *node = header;
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < index; i++)
 			node = node->next;
 		return remove(node->next);
+	}
+
+	/*    Returns the item of the index indicated in the list.
+	      May throw std::out_of_range() if list is empty, exceeds size, or negative index.    */
+	const T itemAt(int index) const
+	{
+		if (isEmpty())
+			throw std::out_of_range("List is empty");
+		if (index >= size)
+			throw std::out_of_range("Index exceeds size of list.");
+		else if (index < 0)
+			throw std::out_of_range("Index cannot be negative.");
+		Node *node = header;
+		for (int i = 0; i < index; i++)
+			node = node->next;
+		return node->next->elem;
 	}
 
 protected:
