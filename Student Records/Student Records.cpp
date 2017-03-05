@@ -11,9 +11,11 @@ using namespace std;
 void addStud();
 void deleteStud();
 void showStud();
+void clear();
 
 class Student
 {
+public:
 	string id, name;
 	int score;
 	static int total;
@@ -27,7 +29,8 @@ class Student
 	}
 };
 
-LinkedList<Student*> l;   //TODO: modify this code (will cause memory leak if initialized).
+LinkedList<Student*> l;
+int Student::total = 30;
 
 int main()
 {
@@ -45,6 +48,7 @@ int main()
 		switch (choice)
 		{
 		case 0:
+			clear();
 			return 0;
 		case 1:
 			addStud();
@@ -64,16 +68,45 @@ int main()
 
 void addStud()
 {
-
+	string name, id;
+	int score;
+	cout << "Name: ";
+	cin >> name;
+	cout << "ID: ";
+	cin >> id;
+	cout << "Score: ";
+	cin >> score;
+	Student *s = new Student(id, name, score);
+	l.addBack(s);
 }
 
 void deleteStud()
 {
-
+	showStud();
+	int index;
+	cout << "Indicate index to be deleted: ";
+	cin >> index;
+	Student *s = l.removeAt(index);
+	delete s;
 }
 
 void showStud()
 {
+	for (int i = 0; i < l.size_of(); i++)
+	{
+		Student *s = l.itemAt(i);
+		cout << "Name: " << s->name << endl;
+		cout << "ID: " << s->id << endl;
+		cout << "Score: " << s->score << endl;
+	}
+}
 
+void clear()
+{
+	while (!l.isEmpty())
+	{
+		Student *s = l.removeFront();
+		delete s;
+	}
 }
 
